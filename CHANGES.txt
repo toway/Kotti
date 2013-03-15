@@ -1,6 +1,11 @@
 Change History
 ==============
 
+0.7.3 - Unreleased
+------------------
+
+- Fix compatibility issue with `deform` 0.9.6+.
+
 0.7.2 - 2012-10-02
 ------------------
 
