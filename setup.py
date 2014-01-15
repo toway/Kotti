@@ -41,6 +41,7 @@ install_requires = [
     'py_bcrypt',
     'pyramid>=1.3',  # needed for kotti_tinymce
     'pyramid_beaker',
+    'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'pyramid_deform>=0.2a3',  # language and template path config includeme
     'pyramid_mailer',
@@ -64,7 +65,7 @@ tests_require = [
     'pytest-cov',
     'pytest-pep8!=1.0.3',
     'pytest-xdist',
-    'wsgi_intercept',
+    'wsgi_intercept==0.5.1',
     'zope.testbrowser',
     ]
 

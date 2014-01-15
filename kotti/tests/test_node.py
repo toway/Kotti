@@ -1,3 +1,5 @@
+from warnings import catch_warnings
+
 from pytest import raises
 from pyramid.security import ALL_PERMISSIONS
 from pyramid.security import Allow
@@ -260,3 +262,34 @@ class TestTypeInfo:
         assert type_info.selectable_default_views == [
             ('foo', u'Fannick'),
             ]
+
+    def test_action_links_deprecated(self):
+        from kotti.resources import TypeInfo
+        from kotti.util import LinkParent
+
+        my_item = object()
+        with catch_warnings(record=True) as wngs:
+            # If there's a last LinkParent item, we'll assume that is
+            # the action menu.
+            TypeInfo(
+                edit_links=[LinkParent('foo', [])],
+                action_links=[my_item],
+                )
+            assert wngs[0].category == DeprecationWarning
+
+        with raises(ValueError):
+            # If there's no last LinkParent item, we'll raise an
+            # error, since we can't do anything useful with the link.
+            TypeInfo(
+                edit_links=[],
+                action_links=[my_item],
+                )
+
+    def test_copy(self):
+        from kotti.resources import TypeInfo
+        obj = object()
+        ti = TypeInfo(name='dummy', edit_links=[obj])
+        ti_copy = ti.copy()
+        assert ti_copy.name == 'dummy'
+        assert ti_copy.edit_links[0] == obj
+        assert ti.edit_links is not ti_copy.edit_links
