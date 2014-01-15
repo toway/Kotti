@@ -21,3 +21,9 @@
 /lib/
 /local
 junit*.xml
+
+
+#Ignore some files of vim
+*.vim
+cscope.*
+tags
